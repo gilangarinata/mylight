@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/parent_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="match_parent"
+            android:layout_height="320dp"
+            android:background="@color/colorWhite"
+            android:foreground="@drawable/back_signup"
+            app:cardElevation="0dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spacing_large" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Sign Up Page"
+            android:textColor="@color/textdark"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spacing_large" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/spacing_large">
+
+            <EditText
+                android:id="@+id/et_username"
+                android:layout_width="350dp"
+                android:layout_height="50dp"
+                android:backgroundTint="@color/colorOrange"
+                android:drawableLeft="@drawable/ic_username"
+                android:drawablePadding="10dp"
+                android:ems="10"
+                android:hint="username"
+                android:inputType="textPersonName"
+                android:textColor="@color/textdark" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacing_large" />
+
+            <EditText
+                android:id="@+id/et_email"
+                android:layout_width="350dp"
+                android:layout_height="50dp"
+                android:backgroundTint="@color/colorOrange"
+                android:drawableLeft="@drawable/ic_mail"
+                android:drawablePadding="10dp"
+                android:ems="10"
+                android:hint="email"
+                android:inputType="textPersonName"
+                android:textColor="@color/textdark" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacing_large" />
+
+            <EditText
+                android:id="@+id/et_work"
+                android:layout_width="350dp"
+                android:layout_height="50dp"
+                android:backgroundTint="@color/colorOrange"
+                android:drawableLeft="@drawable/ic_work"
+                android:drawablePadding="10dp"
+                android:ems="10"
+                android:hint="position"
+                android:inputType="textPersonName"
+                android:textColor="@color/textdark" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacing_large" />
+
+            <EditText
+                android:id="@+id/et_password"
+                android:layout_width="350dp"
+                android:layout_height="50dp"
+                android:backgroundTint="@color/colorOrange"
+                android:drawableLeft="@drawable/ic_password"
+                android:drawablePadding="10dp"
+                android:ems="10"
+                android:hint="password"
+                android:inputType="textPassword"
+                android:textColor="@color/textdark" />
+
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/signup"
+                android:layout_width="350dp"
+                android:layout_height="50dp"
+                android:layout_centerInParent="true"
+                android:layout_marginBottom="30dp"
+                android:background="@drawable/shape_oval_orange"
+                android:text="@string/create_new"
+                android:textColor="@color/colorWhite"
+                android:visibility="visible" />
+
+            <ProgressBar
+                android:id="@+id/progress_circular"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerInParent="true"
+                android:indeterminate="true"
+                android:indeterminateTint="@color/colorOrange"
+                android:indeterminateTintMode="src_atop"
+                android:visibility="invisible" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spacing_xxlarge"/>
+
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

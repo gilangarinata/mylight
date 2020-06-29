@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="timezone">
+        <item>Pacific Standard Time</item>
+        <item>ASEAN Common Time</item>
+        <item>Atlantic Standard Time</item>
+        <item>China Standard Time</item>
+        <item>Eastern Standard Time </item>
+        <item>Greenwich Mean Time</item>
+        <item>Iran Standard Time</item>
+        <item>Middle European Time</item>
+        <item>Malaysia Time</item>
+        <item>Western European Time</item>
+    </string-array>
+
+</resources>
