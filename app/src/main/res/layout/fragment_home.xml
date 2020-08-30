@@ -23,19 +23,14 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <ImageButton
-                android:id="@+id/imageButton"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:background="@color/transparent"
-                android:src="@drawable/ic_back" />
-
             <TextView
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:layout_marginStart="50dp"
+                android:layout_marginLeft="50dp"
                 android:text="@string/home"
                 android:textColor="@color/textdark"
                 android:textSize="20sp"
@@ -101,12 +96,21 @@
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
                     android:textColor="@color/deep_orange_500" />
 
+                <TextView
+                    android:id="@+id/tv_referal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_medium"
+                    android:text="0000"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
+                    android:textColor="@color/deep_orange_500" />
+
             </LinearLayout>
 
             <View
-                android:id="@+id/view8"
-                android:layout_width="60dp"
-                android:layout_height="0dp" />
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
 
             <TextView
                 android:id="@+id/tv_device_count"
@@ -114,21 +118,24 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="0"
+                android:layout_marginHorizontal="@dimen/spacing_medium"
                 android:textColor="@color/textdark"
-                android:textSize="45sp"
+                android:textSize="25sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textView12"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="Lamps"
+                android:layout_marginEnd="@dimen/spacing_large"
                 android:textColor="@color/textdark"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
         </LinearLayout>
+
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"

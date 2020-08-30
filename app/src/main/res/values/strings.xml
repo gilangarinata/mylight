@@ -14,4 +14,8 @@
     <string name="TOKEN_DEVELOPMENT"></string>
 
     <string name="username_error_validation">Wrong Username Format</string>
+
+    <string name="title_activity_show_image_fullscreen">ShowImageFullscreen</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>

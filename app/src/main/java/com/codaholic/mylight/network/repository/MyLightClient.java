@@ -12,6 +12,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Response;
 
@@ -38,7 +39,7 @@ public class MyLightClient {
     }
 
 
-    public MutableLiveData<ResponseAPI> postMultipathClient(String baseEndpoint, String endoint, Map map, OkHttpClient timeout) {
+    public MutableLiveData<ResponseAPI> postMultipathClient(String baseEndpoint, String endoint, HashMap<String, RequestBody> map, OkHttpClient timeout) {
         MutableLiveData<ResponseAPI> response = new MutableLiveData<>();
         compositeDisposable.add(
                 myLightRepository.getClient(baseEndpoint, timeout)

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "181612727543",
+    "firebase_url": "https://seti-apps.firebaseio.com",
+    "project_id": "seti-apps",
+    "storage_bucket": "seti-apps.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:181612727543:android:f1cd3e81875f64ab1697f2",
+        "android_client_info": {
+          "package_name": "com.codaholic.mylight"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "181612727543-rkf5jdi41dvg8674fblo05khr1kaghgf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.codaholic.mylight",
+            "certificate_hash": "98a6948444ac30d31b60928d63870922f1af0a91"
+          }
+        },
+        {
+          "client_id": "181612727543-6g72ga1fo8afvuhj7v7u7o8s64qkti4q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCA5OC4SIC15Fzm0K9DG5OHnocMSZNiHME"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "181612727543-6g72ga1fo8afvuhj7v7u7o8s64qkti4q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

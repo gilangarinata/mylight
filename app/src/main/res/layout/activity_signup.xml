@@ -81,10 +81,10 @@
                 android:layout_width="350dp"
                 android:layout_height="50dp"
                 android:backgroundTint="@color/colorOrange"
-                android:drawableLeft="@drawable/ic_work"
+                android:drawableLeft="@drawable/ic_baseline_people_outline"
                 android:drawablePadding="10dp"
                 android:ems="10"
-                android:hint="position"
+                android:hint="Referral Code"
                 android:inputType="textPersonName"
                 android:textColor="@color/textdark" />
 

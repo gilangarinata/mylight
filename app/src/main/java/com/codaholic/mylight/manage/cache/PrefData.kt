@@ -8,5 +8,6 @@ interface PrefData {
         const val POSITION = "position"
         const val TOKEN = "token"
         const val USER_ID = "id"
+        const val FIREBASE_TOKEN = "firebase_token"
     }
 }

@@ -26,5 +26,12 @@ data class UserInfo(
 	val email: String? = null,
 
 	@field:SerializedName("username")
-	val username: String? = null
+	val username: String? = null,
+
+	@field:SerializedName("referal")
+	val referal: String? = null,
+
+	@field:SerializedName("referalFrom")
+	val referalFrom: String? = null
+
 )

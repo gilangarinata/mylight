@@ -67,6 +67,7 @@ class SignupActivity : AppCompatActivity(), SignUpViewModel.MainCallBack, CallBa
 
     fun goToLogin(){
         startActivity(Intent(this,LoginActivity::class.java))
+        finish()
     }
 
     override fun responseSignUpVM(responseSignUp: ResponseSignUp?) {

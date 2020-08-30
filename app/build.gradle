@@ -4,6 +4,9 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'com.google.gms.google-services'
+
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -67,5 +70,21 @@ dependencies {
     implementation 'com.mikhaellopez:circularimageview:3.2.0'
 
     implementation 'com.balysv:material-ripple:1.0.2'                  // ripple effect
-    implementation 'com.wdullaer:materialdatetimepicker:3.2.0'         // date & time picker
+    implementation 'com.wdullaer:materialdatetimepicker:3.2.0'
+    // date & time picker
+
+    implementation 'com.google.firebase:firebase-analytics:17.2.2'
+    implementation 'com.google.firebase:firebase-messaging:20.1.6'
+
+    //image picker
+    implementation 'com.mlsdev.rximagepicker:library:2.2.1'
+
+    //glide
+    implementation('com.github.bumptech.glide:glide:4.11.0@aar') {
+        transitive = true
+    }
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+
+    implementation 'com.jakewharton.threetenabp:threetenabp:1.2.4'
+    implementation 'com.github.chrisbanes:PhotoView:2.3.0'
 }

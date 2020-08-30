@@ -44,5 +44,8 @@ data class Result(
 	val longitude: String? = null,
 
 	@field:SerializedName("brightness")
-	val brightness: Int? = null
+	val brightness: Int? = null,
+
+	@field:SerializedName("photoPath")
+	val photoPath: String? = null
 )

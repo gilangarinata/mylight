@@ -5,15 +5,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.codaholic.mylight.R
 import com.codaholic.mylight.manage.cache.PrefManager
-import com.codaholic.mylight.model.ResponseAddDevice
-import com.codaholic.mylight.model.ResponseFetchDevice
-import com.codaholic.mylight.model.ResponseLogin
+import com.codaholic.mylight.model.*
 import com.codaholic.mylight.network.*
 import com.codaholic.mylight.network.BaseEndPoin.Companion.baseUrlDevelopment
 import com.codaholic.mylight.network.BaseEndPoin.Companion.baseUrlProduction
 import com.codaholic.mylight.network.BaseEndPoin.Companion.device
 import com.codaholic.mylight.network.BaseEndPoin.Companion.login
 import com.codaholic.mylight.network.BaseEndPoin.Companion.updateLamp
+import com.codaholic.mylight.network.Status
 import com.codaholic.mylight.network.repository.ClientHandleRepository
 import com.codaholic.mylight.network.repository.HashClientRepository
 import com.codaholic.mylight.network.repository.MyLightClient
@@ -83,6 +82,8 @@ class HomeViewModel : ViewModel(), BaseEndPoin {
         )
     }
 
+
+
     fun processResponseFetchDevice(responseAPI: ResponseAPI?) {
         when (responseAPI?.status) {
             Status.SUCCESS -> try {
@@ -114,7 +115,12 @@ class HomeViewModel : ViewModel(), BaseEndPoin {
         when (responseAPI?.status) {
             Status.SUCCESS -> try {
                 if (responseAPI.data!!.isSuccessful()) {
-                    mainCallBack!!.responseDeleteDeviceVM()
+                    val data: String = responseAPI.data.body()!!.string()
+                    val responseDeleteDevice: ResponseDeleteDevice = Gson().fromJson(
+                        data,
+                        ResponseDeleteDevice::class.java
+                    )
+                    mainCallBack!!.responseDeleteDeviceVM(responseDeleteDevice)
                     callBackClient.success("Success", 22)
                 } else {
                     callBackClient.failed(responseAPI.data?.errorBody()?.string())
@@ -154,7 +160,7 @@ class HomeViewModel : ViewModel(), BaseEndPoin {
 
     interface MainCallBack {
         fun responseFetchDeviceVM(responseFetchDevice: ResponseFetchDevice?)
-        fun responseDeleteDeviceVM()
+        fun responseDeleteDeviceVM(responseDeleteDevice: ResponseDeleteDevice)
         fun responseUpdateLampVM()
     }
 }

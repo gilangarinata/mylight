@@ -175,6 +175,18 @@
                         android:textColor="@color/textdark" />
                 </LinearLayout>
 
+                <TextView
+                    android:id="@+id/tv_freset"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginTop="10dp"
+                    android:hint="device number"
+                    android:textColor="@android:color/holo_red_dark"
+                    android:inputType="textPersonName"
+                    android:text="Factory Reset"/>
+
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 

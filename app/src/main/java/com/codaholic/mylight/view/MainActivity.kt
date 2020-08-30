@@ -2,6 +2,7 @@ package com.codaholic.mylight.view
 
 import android.app.Dialog
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
@@ -19,6 +20,7 @@ import com.codaholic.mylight.network.Status
 import com.codaholic.mylight.network.repository.HashClientRepository
 import com.codaholic.mylight.utils.Tools
 import com.codaholic.mylight.viewmodel.MainViewModel
+import com.google.firebase.messaging.FirebaseMessaging
 import id.rizmaulana.sheenvalidator.lib.SheenValidator
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -91,6 +93,17 @@ class MainActivity : AppCompatActivity(), MainViewModel.MainCallBack,CallBackCli
         viewModel.addDevice(hashMap).observe(this, Observer<ResponseAPI> { t: ResponseAPI? -> viewModel.processResponseAddDevice(t) })
     }
 
+    fun subscribeHardwareID(hardwareId: String){
+        FirebaseMessaging.getInstance().subscribeToTopic("seti-app-"+hardwareId)
+            .addOnCompleteListener { task ->
+                var msg = "Subscribe Success"
+                if (!task.isSuccessful) {
+                    msg = "Subscribe Failed"
+                }
+                Log.d("SUBSCRIBE", msg)
+            }
+    }
+
     private fun showCustomDialog() {
         val lp = WindowManager.LayoutParams()
         lp.copyFrom(dialog.window.attributes)
@@ -119,6 +132,7 @@ class MainActivity : AppCompatActivity(), MainViewModel.MainCallBack,CallBackCli
 
     override fun responseAddDeviceVM(responseAddDevice: ResponseAddDevice?) {
         if (responseAddDevice != null) {
+            responseAddDevice.hardwareId?.let { subscribeHardwareID(it) }
             responseAddDevice.message?.let {
                 Tools().showSnackbar((dialog.findViewById<View>(R.id.parent_layout) as LinearLayout), Status.SUCCESS,
                     it

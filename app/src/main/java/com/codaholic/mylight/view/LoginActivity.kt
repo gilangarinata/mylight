@@ -63,7 +63,8 @@ class LoginActivity : AppCompatActivity(), LoginViewModel.MainCallBack,CallBackC
                 responseLogin.userInfo?.username,
                 responseLogin.userInfo?.email,
                 responseLogin.userInfo?.position,
-                responseLogin.userInfo?.id
+                responseLogin.userInfo?.id,
+                responseLogin.userInfo?.referal
             )
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)

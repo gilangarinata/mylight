@@ -6,6 +6,7 @@ import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.*
 import java.util.*
+import kotlin.collections.HashMap
 
 interface RouteApi {
     @GET
@@ -20,7 +21,7 @@ interface RouteApi {
 
     @Multipart
     @POST
-    fun setRoutePostMultipath(@Url url: String?, @PartMap file: Map<String?, RequestBody?>?): Observable<Response<ResponseBody?>?>?
+    fun setRoutePostMultipath(@Url url: String?, @PartMap file: HashMap<String?, RequestBody?>?): Observable<Response<ResponseBody?>?>?
 
     @Streaming
     @GET

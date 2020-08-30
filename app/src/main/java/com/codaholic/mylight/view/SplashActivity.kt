@@ -3,9 +3,15 @@ package com.codaholic.mylight.view
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentActivity
 import com.codaholic.mylight.R
 import com.codaholic.mylight.manage.cache.PrefManager
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.iid.FirebaseInstanceId
+
 
 class SplashActivity : AppCompatActivity() {
     private lateinit var prefManager: PrefManager
@@ -33,7 +39,7 @@ class SplashActivity : AppCompatActivity() {
                     }
 
                 }
-            }, 3000L
+            }, 1000L
         ) //3000 L = 3 detik
     }
 }

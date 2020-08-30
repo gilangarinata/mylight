@@ -1,12 +1,19 @@
 package com.codaholic.mylight.view
 
+import android.app.Dialog
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.method.TextKeyListener.clear
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import android.widget.ImageButton
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
@@ -18,7 +25,9 @@ import com.codaholic.mylight.R
 import com.codaholic.mylight.adapter.DeviceAdapter
 import com.codaholic.mylight.bluetooth.bt_available
 import com.codaholic.mylight.manage.cache.PrefManager
+import com.codaholic.mylight.model.ResponseDeleteDevice
 import com.codaholic.mylight.model.ResponseFetchDevice
+import com.codaholic.mylight.model.ResponseWeather
 import com.codaholic.mylight.model.ResultItem
 import com.codaholic.mylight.network.CallBackClient
 import com.codaholic.mylight.network.ResponseAPI
@@ -26,6 +35,7 @@ import com.codaholic.mylight.network.Status
 import com.codaholic.mylight.utils.SpacingItemDecoration
 import com.codaholic.mylight.utils.Tools
 import com.codaholic.mylight.viewmodel.HomeViewModel
+import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment(),HomeViewModel.MainCallBack,CallBackClient,DeviceAdapter.AdapterCallback, SwipeRefreshLayout.OnRefreshListener {
@@ -66,13 +76,31 @@ class HomeFragment : Fragment(),HomeViewModel.MainCallBack,CallBackClient,Device
     }
 
     fun initProfile(){
-        tv_name.setText(prefManager.username)
-        tv_position.setText(prefManager.position)
+        tv_name.text = prefManager.username
+        tv_position.text = prefManager.position
+        tv_referal.text = prefManager.referal
 
         image2.setOnClickListener {
-            prefManager.logout()
+            showDialogProfile()
         }
     }
+
+    private fun showDialogProfile() {
+        val dialog = Dialog(context)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE) // before
+        dialog.setContentView(R.layout.dialog_profile)
+        (dialog.findViewById<View>(R.id.layout_logout) as LinearLayout).setOnClickListener {
+            prefManager.logout()
+            getActivity()?.finish();
+            startActivity(Intent(activity,DashboardActivity::class.java))
+        }
+
+        dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.setCancelable(true)
+        dialog.show()
+    }
+
+
 
     fun fetchDevice(){
         items.clear()
@@ -95,11 +123,21 @@ class HomeFragment : Fragment(),HomeViewModel.MainCallBack,CallBackClient,Device
         if (responseFetchDevice != null) {
             items.addAll(responseFetchDevice.result as Collection<ResultItem>)
             adapter.notifyDataSetChanged()
-            tv_device_count.setText(items.size.toString())
+            tv_device_count.text = items.size.toString()
         }
     }
 
-    override fun responseDeleteDeviceVM() {
+    override fun responseDeleteDeviceVM(responseDeleteDevice: ResponseDeleteDevice) {
+        responseDeleteDevice.hardwareId?.let {
+            FirebaseMessaging.getInstance().unsubscribeFromTopic("seti-app-"+it)
+                .addOnCompleteListener { task ->
+                    var msg = "UNSubscribe Success"
+                    if (!task.isSuccessful) {
+                        msg = "UNSubscribe Failed"
+                    }
+                    Log.d("UNSUBSCRIBE", msg)
+                }
+        }
         fetchDevice()
     }
 
@@ -136,12 +174,8 @@ class HomeFragment : Fragment(),HomeViewModel.MainCallBack,CallBackClient,Device
         showProgress(false)
     }
 
-    fun showProgress(isLoading:Boolean){
-        if (isLoading) {
-            swipe_layout.isRefreshing = true
-        }else{
-            swipe_layout.isRefreshing = false
-        }
+    private fun showProgress(isLoading:Boolean){
+        swipe_layout.isRefreshing = isLoading
     }
 
     private fun showConfirmDialog(id:String) {

@@ -5,6 +5,7 @@ object ConfigNetwork {
     var EMAIL = "email"
     var PASSWORD = "password"
     var POSITION = "position"
+    var REFERAL = "referal"
 
     var NAME = "name"
     var DESCRIPTION = "description"

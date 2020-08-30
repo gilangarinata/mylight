@@ -7,17 +7,20 @@ import androidx.lifecycle.ViewModel
 import com.codaholic.mylight.R
 import com.codaholic.mylight.model.ResponseHardwareDetails
 import com.codaholic.mylight.model.ResponseLogin
+import com.codaholic.mylight.model.ResponseWeather
 import com.codaholic.mylight.network.*
 import com.codaholic.mylight.network.BaseEndPoin.Companion.baseUrlDevelopment
 import com.codaholic.mylight.network.BaseEndPoin.Companion.baseUrlProduction
 import com.codaholic.mylight.network.BaseEndPoin.Companion.hardwareDetail
 import com.codaholic.mylight.network.BaseEndPoin.Companion.login
 import com.codaholic.mylight.network.BaseEndPoin.Companion.updateBrightness
+import com.codaholic.mylight.network.BaseEndPoin.Companion.uploadImage
 import com.codaholic.mylight.network.repository.ClientHandleRepository
 import com.codaholic.mylight.network.repository.HashClientRepository
 import com.codaholic.mylight.network.repository.MyLightClient
 import com.codaholic.mylight.utils.Tools
 import com.google.gson.Gson
+import okhttp3.RequestBody
 import java.util.*
 
 class DetailHomeViewModel : ViewModel(), BaseEndPoin {
@@ -47,10 +50,50 @@ class DetailHomeViewModel : ViewModel(), BaseEndPoin {
         if (StateProduction().isProduction) return baseUrlProduction else return baseUrlDevelopment
     }
 
+
+    //    http://api.openweathermap.org/data/2.5/weather?lat=-7.24566&lon=112.7829&appid=815168ce4992ad1ee04830a8556bedf9&units=metric
+
+    fun getWeather(long : String, lat: String, appId : String): LiveData<ResponseAPI>{
+        return myLightClient.getClient(
+            "http://api.openweathermap.org",
+            "/data/2.5/weather?lat=${lat}&lon=${long}&appid=${appId}&units=metric",
+            HashClientRepository().defaultHash(),
+            ClientHandleRepository().medium(
+                context,
+                getToken()
+            )
+        )
+    }
+
+
     fun getHardwareDetail(hardwareId : String): LiveData<ResponseAPI> {
         return myLightClient.getClient(
             getBaseUrl(),
             hardwareDetail + "/$hardwareId" ,
+            HashClientRepository().defaultHash(),
+            ClientHandleRepository().medium(
+                context,
+                getToken()
+            )
+        )
+    }
+
+    fun uploadImage(hashMap: HashMap<String,RequestBody>): LiveData<ResponseAPI> {
+        return myLightClient.postMultipathClient(
+            getBaseUrl(),
+            uploadImage,
+            hashMap,
+            ClientHandleRepository().medium(
+                context,
+                getToken()
+            )
+        )
+    }
+
+    fun deleteImage(hardwareId : String): LiveData<ResponseAPI> {
+        return myLightClient.deleteClient(
+            getBaseUrl(),
+            uploadImage + "/$hardwareId",
             HashClientRepository().defaultHash(),
             ClientHandleRepository().medium(
                 context,
@@ -74,6 +117,33 @@ class DetailHomeViewModel : ViewModel(), BaseEndPoin {
         )
     }
 
+    fun processResponseWeather(responseAPI: ResponseAPI?) {
+        when (responseAPI?.status) {
+            Status.SUCCESS -> try {
+                if (responseAPI.data!!.isSuccessful()) {
+                    val data: String = responseAPI.data.body()!!.string()
+                    val responseWeather: ResponseWeather = Gson().fromJson(
+                        data,
+                        ResponseWeather::class.java
+                    )
+                    mainCallBack!!.responseWeatherVM(responseWeather)
+                    callBackClient.success("Success", 22)
+                } else {
+                    callBackClient.failed(responseAPI.data?.errorBody()?.string())
+                }
+            } catch (e: Exception) {
+                callBackClient.error(e)
+            }
+            Status.LOADING -> callBackClient.loading()
+            Status.ERROR -> try {
+                callBackClient.errorConnection(responseAPI.error)
+            } catch (e: Exception) {
+                callBackClient.error(e)
+            }
+        }
+    }
+
+
     fun processResponseUpdateBrightness(responseAPI: ResponseAPI?) {
         when (responseAPI?.status) {
             Status.SUCCESS -> try {
@@ -94,6 +164,52 @@ class DetailHomeViewModel : ViewModel(), BaseEndPoin {
             }
         }
     }
+
+
+    fun processResponseUploadImage(responseAPI: ResponseAPI?) {
+        when (responseAPI?.status) {
+            Status.SUCCESS -> try {
+                if (responseAPI.data!!.isSuccessful()) {
+                    mainCallBack!!.responseUploadImage()
+                    callBackClient.success("Success", 22)
+                } else {
+                    callBackClient.failed(responseAPI.data?.errorBody()?.string())
+                }
+            } catch (e: Exception) {
+                callBackClient.error(e)
+            }
+            Status.LOADING -> callBackClient.loading()
+            Status.ERROR -> try {
+                callBackClient.errorConnection(responseAPI.error)
+            } catch (e: Exception) {
+                callBackClient.error(e)
+            }
+        }
+    }
+
+    fun processResponseDeleteImage(responseAPI: ResponseAPI?) {
+        when (responseAPI?.status) {
+            Status.SUCCESS -> try {
+                if (responseAPI.data!!.isSuccessful()) {
+                    mainCallBack!!.responseDeleteImage()
+                    callBackClient.success("Success", 22)
+                } else {
+                    callBackClient.failed(responseAPI.data?.errorBody()?.string())
+                }
+            } catch (e: Exception) {
+                callBackClient.error(e)
+            }
+            Status.LOADING -> callBackClient.loading()
+            Status.ERROR -> try {
+                callBackClient.errorConnection(responseAPI.error)
+            } catch (e: Exception) {
+                callBackClient.error(e)
+            }
+        }
+    }
+
+
+
 
     fun processResponseHardwareDetail(responseAPI: ResponseAPI?) {
         when (responseAPI?.status) {
@@ -125,5 +241,8 @@ class DetailHomeViewModel : ViewModel(), BaseEndPoin {
     interface MainCallBack {
         fun responseHardwareDetailVM(responseHardwareDetails: ResponseHardwareDetails)
         fun responseUpdateBrightness()
+        fun responseUploadImage()
+        fun responseDeleteImage()
+        fun responseWeatherVM(responseWeather: ResponseWeather)
     }
 }

@@ -4,6 +4,10 @@
         <domain includeSubdomains="true">192.168.0.12</domain>
         <domain includeSubdomains="true">104.43.171.129</domain>
         <domain includeSubdomains="true">192.168.1.6</domain>
+        <domain includeSubdomains="true">192.168.1.32</domain>
         <domain includeSubdomains="true">192.168.0.153</domain>
+        <domain includeSubdomains="true">mylamp.ddns.net</domain>
+        <domain includeSubdomains="true">api.openweathermap.org</domain>
+        <domain includeSubdomains="true">139.0.89.171</domain>
     </domain-config>
 </network-security-config>

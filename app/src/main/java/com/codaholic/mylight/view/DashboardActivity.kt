@@ -21,10 +21,12 @@ class DashboardActivity : AppCompatActivity() {
         create_acc.setOnClickListener{
             val intent = Intent(this, SignupActivity::class.java)
             startActivity(intent)
+            finish()
         }
         login.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
+            finish()
         }
     }
 

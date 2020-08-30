@@ -65,6 +65,10 @@ class bt_main : AppCompatActivity() {
                     et_lon.text.toString() + ":" + et_lat.text.toString()
             mConnectedThread!!.write(paketdata)
         }
+
+        tv_freset.setOnClickListener {
+            mConnectedThread!!.write("FRESET")
+        }
     }
 
     @Throws(IOException::class)

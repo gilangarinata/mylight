@@ -11,6 +11,18 @@ class HashClientRepository {
         return map
     }
 
+    fun uploadImage(
+        hardwareId: RequestBody,
+        images:RequestBody,
+        name:String
+    ): HashMap<String, RequestBody> {
+        val map: HashMap<String, RequestBody> =
+            HashMap()
+        map.put("hardwareId", hardwareId)
+        map.put("images\"; filename=\"" + name + "\"",images)
+        return map
+    }
+
     fun signUp(
         username: String,
         email: String,
@@ -22,7 +34,7 @@ class HashClientRepository {
         map.put(ConfigNetwork.USERNAME, username);
         map.put(ConfigNetwork.EMAIL, email);
         map.put(ConfigNetwork.PASSWORD, password);
-        map.put(ConfigNetwork.POSITION, position);
+        map.put(ConfigNetwork.REFERAL, position);
         return map
     }
 

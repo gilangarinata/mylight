@@ -11,6 +11,8 @@ import okhttp3.ResponseBody;
 
 public class ResponseAPI {
 
+
+
     public final Status status;
 
     @Nullable
